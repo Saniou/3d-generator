@@ -10,6 +10,7 @@ import StatusIndicator from "./status-indicator"
 import OptionsDialog from "./options-dialog"
 import { Button } from "@/components/ui/button"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import BackgroundGradientAnimation from "@/components/background-gradient-animation"
 
 export default function Rodin() {
   const [isLoading, setIsLoading] = useState(false)
@@ -185,80 +186,87 @@ export default function Rodin() {
   )
 
   return (
-    <div className="relative h-[100dvh] w-full">
-      {/* Full-screen canvas */}
-      <div className="absolute inset-0 z-0">
-        <ModelViewer modelUrl={isLoading ? null : modelUrl} />
-      </div>
+    <>
+      <div className="relative h-[100dvh] w-full">
 
-      {/* Overlay UI */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Logo in top left */}
-        <div className="absolute top-6 left-6 pointer-events-auto">
-          <h1 className="text-3xl text-white font-normal tracking-normal">3D Model Generator</h1>
-          <p className="text-gray-400 text-sm mt-1 tracking-normal">Powered by Hyper3D Rodin</p>
+        <div className="absolute inset-0 z-0 opacity-60">
+          <BackgroundGradientAnimation />
         </div>
 
-        {/* Links in top right - desktop only */}
-        {!isMobile && (
-          <div className="absolute top-6 right-6 pointer-events-auto">
-            <ExternalLinks />
+        {/* Full-screen canvas */}
+        <div className="absolute inset-0 z-0">
+          <ModelViewer modelUrl={isLoading ? null : modelUrl} />
+        </div>
+
+        {/* Overlay UI */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {/* Logo in top left */}
+          <div className="absolute top-6 left-6 pointer-events-auto">
+            <h1 className="text-3xl text-white font-normal tracking-normal">3D Model Generator</h1>
+            <p className="text-gray-400 text-sm mt-1 tracking-normal">Powered by Hyper3D Rodin</p>
           </div>
-        )}
 
-        {/* Loading indicator */}
-        <StatusIndicator isLoading={isLoading} jobStatuses={jobStatuses} />
+          {/* Links in top right - desktop only */}
+          {!isMobile && (
+            <div className="absolute top-6 right-6 pointer-events-auto">
+              <ExternalLinks />
+            </div>
+          )}
 
-        {/* Error message */}
-        {error && (
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-gray-900/80 text-white px-4 py-2 rounded-md tracking-normal">
-            {error}
-          </div>
-        )}
+          {/* Loading indicator */}
+          <StatusIndicator isLoading={isLoading} jobStatuses={jobStatuses} />
 
-        {/* Model controls when model is loaded */}
-        {!isLoading && modelUrl && !showPromptContainer && (
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 pointer-events-auto">
-            <Button
-              onClick={handleBack}
-              className="bg-black hover:bg-gray-900 text-white border border-white/20 rounded-full px-4 py-2 flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="tracking-normal">Back</span>
-            </Button>
+          {/* Error message */}
+          {error && (
+            <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-gray-900/80 text-white px-4 py-2 rounded-md tracking-normal">
+              {error}
+            </div>
+          )}
 
-            <Button
-              onClick={handleDownload}
-              className="bg-white hover:bg-gray-200 text-black rounded-full px-4 py-2 flex items-center gap-2"
-            >
-              <Download className="h-4 w-4" />
-              <span className="tracking-normal">Download</span>
-            </Button>
-          </div>
-        )}
+          {/* Model controls when model is loaded */}
+          {!isLoading && modelUrl && !showPromptContainer && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 pointer-events-auto">
+              <Button
+                onClick={handleBack}
+                className="bg-black hover:bg-gray-900 text-white border border-white/20 rounded-full px-4 py-2 flex items-center gap-2"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="tracking-normal">Back</span>
+              </Button>
 
-        {/* Input field at bottom */}
-        {showPromptContainer && (
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-3xl px-4 sm:px-0 pointer-events-auto">
-            <Form isLoading={isLoading} onSubmit={handleSubmit} onOpenOptions={() => setShowOptions(true)} />
+              <Button
+                onClick={handleDownload}
+                className="bg-white hover:bg-gray-200 text-black rounded-full px-4 py-2 flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" />
+                <span className="tracking-normal">Download</span>
+              </Button>
+            </div>
+          )}
 
-            {/* Links below prompt on mobile */}
-            {isMobile && (
-              <div className="mt-4 flex justify-center pointer-events-auto">
-                <ExternalLinks />
-              </div>
-            )}
-          </div>
-        )}
+          {/* Input field at bottom */}
+          {showPromptContainer && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-3xl px-4 sm:px-0 pointer-events-auto">
+              <Form isLoading={isLoading} onSubmit={handleSubmit} onOpenOptions={() => setShowOptions(true)} />
+
+              {/* Links below prompt on mobile */}
+              {isMobile && (
+                <div className="mt-4 flex justify-center pointer-events-auto">
+                  <ExternalLinks />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Options Dialog/Drawer */}
+        <OptionsDialog
+          open={showOptions}
+          onOpenChange={setShowOptions}
+          options={options}
+          onOptionsChange={handleOptionsChange}
+        />
       </div>
-
-      {/* Options Dialog/Drawer */}
-      <OptionsDialog
-        open={showOptions}
-        onOpenChange={setShowOptions}
-        options={options}
-        onOptionsChange={handleOptionsChange}
-      />
-    </div>
+    </>
   )
 }

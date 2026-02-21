@@ -5,12 +5,12 @@ export default function LoadingPlaceholder() {
     <>
       <mesh>
         <boxGeometry args={[1.5, 1.5, 1.5]} />
-        <meshStandardMaterial color="#cccccc" wireframe={true} transparent opacity={0.5} />
+        <meshStandardMaterial color="#ffffffff" wireframe={true} transparent opacity={0.5} />
       </mesh>
 
       <mesh>
         <sphereGeometry args={[0.75, 32, 32]} />
-        <meshStandardMaterial color="#aaaaaa" wireframe={true} transparent opacity={0.5} />
+        <meshStandardMaterial color="#ffffffff" wireframe={true} transparent opacity={0.5} />
       </mesh>
     </>
   )

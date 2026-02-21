@@ -1,6 +1,8 @@
 import type React from "react"
-import {Geist} from "next/font/google"
+import { Geist } from "next/font/google"
 import "./globals.css"
+import BackgroundGradientAnimation from "@/components/background-gradient-animation"
+
 
 const geist = Geist({
     subsets: ["latin"],
@@ -8,17 +10,19 @@ const geist = Geist({
 })
 
 export default function RootLayout({
-                                       children,
-                                   }: {
+    children,
+}: {
     children: React.ReactNode
 }) {
     return (
         <html lang="en" className={geist.className}>
-        <head>
-            <title>3D Model Generator</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-        </head>
-        <body className="bg-black text-white">{children}</body>
+            <head>
+                <title>3D Model Generator</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            </head>
+            <body className="bg-black text-white">
+                {children}
+                </body>
         </html>
     )
 }
