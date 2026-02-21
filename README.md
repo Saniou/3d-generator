@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 3D Model Generator
 
-## Getting Started
+AI-powered **Text & Image → 3D Model Generator**  
+Built with **Next.js 16, React 19, TypeScript, React Three Fiber & Hyper3D Rodin API**
 
-First, run the development server:
+---
+
+## 🚀 Overview
+
+3D Model Generator — це сучасний веб-застосунок, який дозволяє створювати 3D-моделі з:
+
+- 📝 Текстового опису  
+- 🖼 Одного або кількох зображень  
+- 🔀 Комбінації тексту та зображень  
+
+Модель генерується через **Hyper3D Rodin API** та відображається прямо в браузері за допомогою **Three.js / React Three Fiber**.
+
+---
+
+## ✨ Features
+
+- 🎨 Text → 3D
+- 🖼 Image → 3D
+- 🔄 Multi-image conditioning
+- ⚙ Advanced generation settings
+- 📦 Automatic GLB download
+- 🧠 Real-time job status polling
+- 🌑 Minimal dark UI
+- ⚡ Turbopack powered
+- 📱 Responsive design
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+- Next.js 16
+- React 19
+- TypeScript
+- TailwindCSS
+- React Hook Form
+- Zod validation
+- Lucide Icons
+
+### 3D Rendering
+- three
+- @react-three/fiber
+- @react-three/drei
+
+### Backend (API Routes)
+- Next.js Route Handlers
+- Hyper3D Rodin API Proxy
+- Secure GLB download proxy
+
+---
+
+## 🏗 Project Structure
+app/
+├── api/
+│ ├── rodin/ # Submit generation job
+│ ├── status/ # Check generation status
+│ └── proxy-download/ # Secure model streaming
+├── globals.css
+├── layout.tsx
+└── page.tsx
+
+components/
+├── form.tsx
+├── model-viewer.tsx
+├── loading-spinner.tsx
+└── options-dialog.tsx
+
+lib/
+├── api-service.ts
+├── form-schema.ts
+└── utils.ts
+
+
+---
+
+## ⚙ Installation
+
+### Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run development server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production build
 
-## Learn More
+```bash
+pnpm run build
+pnpm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📚 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MIT License
 
-## Deploy on Vercel
+# 🧠 How It Works
+- User submits prompt and/or images
+- `/api/rodin` forwards request to Hyper3D
+- Server returns subscription_key and uuid
+- App polls job status
+- When complete:
+- Fetch GLB file
+- Load into 3D viewer
+- Enable download
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🖼 3D Viewer
+- Animated wireframe loading spinner
+- Live GLB rendering
+- Orbit controls
+- Minimal black UI
+- Smooth animation loop
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📦 Supported Output Formats
+- GLB
+- FBX
+- OBJ
+- STL
+- USDZ
+
+### 🌌 Why This Project Is Interesting
+- Combines AI + 3D + WebGL
+- Real-time async job orchestration
+- Secure server-side API proxying
+- Production-ready architecture
+- Modern React + App Router + Turbopack
+
