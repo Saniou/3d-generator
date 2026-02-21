@@ -2,10 +2,10 @@
 
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
-import type * as THREE from "three"
+import type { Group } from "three"
 
 export default function LoadingSpinner() {
-  const groupRef = useRef<THREE.Group>(null)
+  const groupRef = useRef<Group | null>(null)
 
   useFrame(({ clock }) => {
     if (groupRef.current) {

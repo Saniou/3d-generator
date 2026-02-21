@@ -1,23 +1,22 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import type * as z from "zod"
+import type { z } from "zod"
 import { Form as UIForm } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { ImageIcon, SlidersHorizontal, ArrowUp } from "lucide-react"
 import AutoResizeTextarea from "./auto-resize-textarea"
 import ImageUploadArea from "./image-upload-area"
-import { formSchema } from "@/lib/form-schema"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cn } from "@/lib/utils"
+import { zodResolver } from "@hookform/resolvers/zod"
+import type { FormValues } from "@/lib/form-schema"
+import { formSchema } from "@/lib/form-schema"
 
 interface FormProps {
   isLoading: boolean
-  onSubmit: (values: z.infer<typeof formSchema>) => Promise<void>
+  onSubmit: (values: FormValues) => Promise<void>
   onOpenOptions: () => void
 }
 
@@ -32,8 +31,8 @@ export default function Form({ isLoading, onSubmit, onOpenOptions }: FormProps) 
   const dragCounter = useRef(0)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       prompt: "",
       images: [],
